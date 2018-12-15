@@ -164,22 +164,24 @@
     }
 
     function worldReset() {
-        getPlayerPos();
-        postToChat('周りを元に戻します。');
-        var x = getPlayerYXZ("x");
-        var y = getPlayerYXZ("y");
-        var z = getPlayerYXZ("z");
+        getPlayerPos(doWorldReset);
 
+        function doWorldReset() {
+  	        postToChat('周りを元に戻します。');
+      			var x = getPlayerYXZ("x");
+      			var y = getPlayerYXZ("y");
+      			var z = getPlayerYXZ("z");
 
-        if(y>30){
-          setBlocks(75, x-30,  y-30, z-30, x+30, y+30, z+30); // 空気ブロックをしきつめる
-        } else {
-          setBlocks(75, x-30,  0, z-30, x+30, 30, z+30);      // 空気ブロックをしきつめる
-          setBlocks(6,  x-30, -3, z-30, x+30, -1, z+30);      // 草ブロックをしきつめる
-          setBlocks(77, x-30, -4, z-30, x+30, -4, z+30);      // 岩盤をしきつめる
-        }
+      			if(y>30){
+      			  setBlocks(75, x-30,  y-30, z-30, x+30, y+30, z+30); // 空気ブロックをしきつめる
+      			} else {
+      			  setBlocks(75, x-30,  0, z-30, x+30, 30, z+30);      // 空気ブロックをしきつめる
+      			  setBlocks(6,  x-30, -3, z-30, x+30, -1, z+30);      // 草ブロックをしきつめる
+      			  setBlocks(77, x-30, -4, z-30, x+30, -4, z+30);      // 岩盤をしきつめる
+      			}
 
-    }
+  		  }
+	  }
 
     var blockList = [ // [MicratchID, BlockID, DataID, Name]
         [1,1,0,'石'],
@@ -402,7 +404,7 @@
           ['r', '%m.decorativeBlock', 'getDecorativeBlockID', 'フェンス'],
           ['r', '%m.powerBlock', 'getPowerBlockID', 'レッドストーンブロック'],
           ['r', '%m.plantBlock', 'getPlantBlockID', 'ポピー'],
-          [' ', '周囲をリセット', 'worldReset'],
+          ['w', '周囲をリセット', 'worldReset'],
           [' ', 'テレポート X:%n Y:%n Z:%n ', 'setPlayer', 0,0,0 ],
           ['w', 'プレイヤーの座標をゲット', 'getPlayerPos'],
           ['r', 'プレイヤーの %m.pos 座標', 'playerXYZ', 'x'],
